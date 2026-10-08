@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Portfolio Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="dashboard">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>📊 StockPro</h2>
+    <ul>
+      <li>Dashboard</li>
+      <li class="active">Portfolio</li>
+      <li>Watchlist</li>
+      <li>Analytics</li>
+      <li>Settings</li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+
+    <h1>📁 My Portfolio</h1>
+
+    <!-- Summary Cards -->
+    <div class="portfolio-summary">
+
+      <div class="summary-card">
+        <h3>Total Invested</h3>
+        <p id="totalInvested">₹0</p>
+      </div>
+
+      <div class="summary-card">
+        <h3>Current Value</h3>
+        <p id="currentValue">₹0</p>
+      </div>
+
+      <div class="summary-card">
+        <h3>Total Profit</h3>
+        <p id="totalPL">₹0</p>
+      </div>
+
+      <div class="summary-card">
+        <h3>Overall Return</h3>
+        <p id="returnPercent">0%</p>
+      </div>
+
+    </div>
+
+    <!-- Today Gain & Risk Section -->
+    <div class="extra-section">
+
+      <div class="today-card">
+        <h3>📈 Today's Gain</h3>
+        <p id="todayGain">₹0</p>
+      </div>
+
+      <div class="risk-card">
+        <h3>⚠ Risk Meter</h3>
+        <div class="risk-bar">
+          <div class="risk-fill" id="riskFill"></div>
+        </div>
+        <p id="riskLevel">Moderate</p>
+      </div>
+
+      <div class="diversification-card">
+        <h3>🎯 Diversification Score</h3>
+        <p id="divScore">0%</p>
+      </div>
+
+    </div>
+
+    <!-- Charts -->
+    <div class="charts-section">
+      <canvas id="growthChart"></canvas>
+      <canvas id="allocationChart"></canvas>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="portfolio.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Smart Alerts</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="alerts-container">
+
+  <h1>🔔 Smart Price Alerts</h1>
+
+  <!-- Create Alert -->
+  <div class="create-alert">
+    <input type="text" id="stockName" placeholder="Stock Name (e.g. TCS)">
+    <input type="number" id="targetPrice" placeholder="Target Price">
+    
+    <select id="condition">
+      <option value="above">Above</option>
+      <option value="below">Below</option>
+    </select>
+
+    <button onclick="addAlert()">Create Alert</button>
+  </div>
+
+  <!-- Active Alerts -->
+  <div class="alerts-section">
+    <h2>Active Alerts</h2>
+    <div id="activeAlerts"></div>
+  </div>
+
+  <!-- Triggered Alerts -->
+  <div class="alerts-section">
+    <h2>Triggered Alerts</h2>
+    <div id="triggeredAlerts"></div>
+  </div>
+
+</div>
+
+<script src="alerts.js"></script>
+</body>
+</html>
+

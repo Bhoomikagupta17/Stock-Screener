@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Stock AI Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="dashboard-body">
+
+<div class="sidebar">
+  <h2>📊 Stock AI</h2>
+  <ul>
+    <li>🏠 Home</li>
+    <li class="active">📈 Dashboard</li>
+    <button onclick="showSection('home')">🏠 Home</button>
+<button onclick="location.href='screener.html'">🔍 Screener</button>
+<button onclick="location.href='watchlist.html'">⭐ Watchlist</button>
+<button onclick="location.href='portfolio.html'">💼 Portfolio</button>
+<button onclick="location.href='alerts.html'">🔔 Alerts</button>
+<button onclick="location.href='login.html'">🚪 Logout</button>
+
+
+  </ul>
+</div>
+
+<div class="main">
+
+  <header>
+    <h1>AI Stock Screener & Advisory Dashboard</h1>
+  </header>
+
+  <!-- STOCK SCREENER -->
+  <section class="card">
+    <h2>🔍 Stock Screener</h2>
+<input id="screenerQuery" placeholder="PE < 20, IT stocks, High ROE" />
+<button onclick="runScreener()">Run Screener</button>
+
+<h3 id="resultTitle"></h3>
+<div id="stockResults" class="results-container"></div>
+
+<canvas id="stockChart"></canvas>
+
+
+  </section>
+
+  <!-- WATCHLIST -->
+  <div id="section-watchlist" class="section">
+  <h2>⭐ Watchlist</h2>
+  <ul id="watchlist"></ul>
+</div>
+
+
+
+  <!-- PORTFOLIO -->
+  <div id="section-portfolio" class="section">
+  <h2>💼 Portfolio</h2>
+  <table border="1" width="100%">
+    <thead>
+      <tr>
+        <th>Stock</th>
+        <th>Qty</th>
+        <th>Buy</th>
+        <th>Current</th>
+        <th>P/L</th>
+      </tr>
+    </thead>
+    <tbody id="portfolioTable"></tbody>
+  </table>
+</div>
+
+
+
+  <!-- ALERTS -->
+<div id="section-alerts" class="section">
+  <h2>🔔 Alerts</h2>
+  <ul id="alertsList"></ul>
+</div>
+
+
+
+  <!-- AI RECOMMENDATION -->
+  <section class="card highlight">
+    <h2>🤖 AI Recommendation</h2>
+    <p><strong>INFY:</strong> BUY (Strong fundamentals, positive momentum)</p>
+  </section>
+
+<div id="section-home" class="section">
+  <h2>Welcome to AI Stock Advisory Platform</h2>
+  <p>Select any option from the sidebar</p>
+</div>
+
+</div>
+
+<script src="app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // ======================
+  // SAMPLE DATA (DUMMY)
+  // ======================
+
+  const watchlistData = [
+    { symbol: "TCS", price: 3560, change: "+1.2%" },
+    { symbol: "INFY", price: 1480, change: "-0.5%" },
+    { symbol: "RELIANCE", price: 2520, change: "+0.8%" },
+    { symbol: "HDFCBANK", price: 1650, change: "+0.4%" },
+    { symbol: "ICICIBANK", price: 1045, change: "+1.1%" }
+  ];
+  function loadWatchlist() {
+    const list = document.getElementById("watchlist");
+    list.innerHTML = "";
+
+    watchlistData.forEach(stock => {
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <strong>${stock.symbol}</strong> — ₹${stock.price}
+        <span style="color:${stock.change.includes('+') ? 'lightgreen' : 'red'}">
+          (${stock.change})
+        </span>
+      `;
+      list.appendChild(li);
+    });
+  }
+
+
+  const portfolioData = [
+    { symbol: "INFY", qty: 10, buy: 1400, current: 1520 },
+    { symbol: "TCS", qty: 5, buy: 3300, current: 3560 },
+    { symbol: "RELIANCE", qty: 3, buy: 2300, current: 2520 }
+  ];
+  function loadPortfolio() {
+    const table = document.getElementById("portfolioTable");
+    table.innerHTML = "";
+
+    portfolioData.forEach(stock => {
+      const profit = (stock.current - stock.buy) * stock.qty;
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td>${stock.symbol}</td>
+        <td>${stock.qty}</td>
+        <td>₹${stock.buy}</td>
+        <td>₹${stock.current}</td>
+        <td style="color:${profit >= 0 ? 'lightgreen' : 'red'}">
+          ₹${profit}
+        </td>
+      `;
+      table.appendChild(row);
+    });
+  }
+
+
+  const alertData = [
+    { symbol: "TCS", target: 3600, status: "Near Target" },
+    { symbol: "INFY", target: 1550, status: "Triggered" },
+    { symbol: "HDFCBANK", target: 1700, status: "Pending" }
+  ];
+  function loadAlerts() {
+    const list = document.getElementById("alertsList");
+    list.innerHTML = "";
+
+    alertData.forEach(alert => {
+      const li = document.createElement("li");
+      li.innerHTML = `
+        ${alert.symbol} → ₹${alert.target}
+        <strong>(${alert.status})</strong>
+      `;
+      list.appendChild(li);
+    });
+  }
+
+
+function showSection(name) {
+  document.querySelectorAll('.section').forEach(sec => {
+    sec.style.display = 'none';
+  });
+
+  document.getElementById('section-' + name).style.display = 'block';
+
+  if (name === "watchlist") loadWatchlist();
+  if (name === "portfolio") loadPortfolio();
+  if (name === "alerts") loadAlerts();
+}
+
+
+  function logout() {
+    alert("Logging out...");
+    window.location.href = "login.html";
+  }
+
+  // show home by default
+  showSection('home');
+  
+</script>
+
+
+</body>
+</html>
